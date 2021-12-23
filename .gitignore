@@ -2,3 +2,5 @@
 /results
 /tools/objdet_models/darknet/pretrained
 /tools/objdet_models/resnet/pretrained
+
+__pycache__
