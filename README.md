@@ -73,6 +73,27 @@ The project has been written using Python 3.7. Please make sure that your local 
 All dependencies required for the project have been listed in the file `requirements.txt`. You may either install them one-by-one using pip or you can use the following command to install them all at once:
 `pip3 install -r requirements.txt`
 
+### Docker
+You can setup a containerized environment to run the project in by building the Dockerfile located in the `build` directory with the following command:
+
+```
+docker build \
+  -t sensor-fusion:project \
+  -f ./build/Dockerfile \
+  ./build/
+```
+
+The container can then be run with the following command:
+
+```
+docker run -it \
+  -v $PWD:/workspace \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -e DISPLAY=$DISPLAY \
+  --network host \
+  sensor-fusion:project
+```
+
 ### Waymo Open Dataset Reader
 The Waymo Open Dataset Reader is a very convenient toolbox that allows you to access sequences from the Waymo Open Dataset without the need of installing all of the heavy-weight dependencies that come along with the official toolbox. The installation instructions can be found in `tools/waymo_reader/README.md`.
 
