@@ -2,7 +2,9 @@
 #   -v $PWD:/workspace \
 #   -v /tmp/.X11-unix:/tmp/.X11-unix \
 #   -e DISPLAY=$DISPLAY \
+#   -e QT_X11_NO_MITSHM=1 \
 #   --network host \
+#   --gpus all \
 #   sensor-fusion:project
 
 FROM ubuntu:focal
@@ -11,7 +13,14 @@ ENV LANG C.UTF-8
 RUN apt-get -qqy update \
   && DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends install \
     software-properties-common \
-    libgtk-3-dev
+    libgtk-3-dev \
+    libglvnd0 \
+    libgl1 \
+    libglx0 \
+    libegl1 \
+    libxext6 \
+    libx11-6 \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get -qqy update && \
     add-apt-repository ppa:deadsnakes/ppa -y && \
@@ -23,5 +32,8 @@ RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
 
 ENV GDK_SYNCHRONIZE true
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES graphics,utility,compute
+
 WORKDIR /workspace
 ENTRYPOINT [ "bash" ]

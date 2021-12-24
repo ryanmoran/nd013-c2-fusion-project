@@ -86,11 +86,14 @@ docker build \
 The container can then be run with the following command:
 
 ```
+sudo xhost +local:root # allows connections to X11 from the local network
 docker run -it \
   -v $PWD:/workspace \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -e DISPLAY=$DISPLAY \
+  -e QT_X11_NO_MITSHM=1 \
   --network host \
+  --gpus all \
   sensor-fusion:project
 ```
 
