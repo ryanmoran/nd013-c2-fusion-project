@@ -37,6 +37,8 @@ def show_pcl(pcl):
 
     ####### ID_S1_EX2 START #######
     #######
+    print("student task ID_S1_EX2")
+
     # step 1 : initialize open3d with key callback and create window
     visualizer = o3d.visualization.VisualizerWithKeyCallback()
     visualizer.create_window(window_name='Open3D', width=1280, height=720, left=50, top=50, visible=True)
@@ -64,6 +66,8 @@ def show_range_image(frame, lidar_name):
 
     ####### ID_S1_EX1 START #######
     #######
+    print("student task ID_S1_EX1")
+
     # step 1 : extract lidar data and range image for the roof-mounted lidar
     lidar = [obj for obj in frame.lasers if obj.name == lidar_name][0]
     ri = []
@@ -118,12 +122,17 @@ def bev_from_pcl(lidar_pcl, configs):
     print("student task ID_S2_EX1")
 
     ## step 1 :  compute bev-map discretization by dividing x-range by the bev-image height (see configs)
+    scale = (configs.lim_x[1] - configs.lim_x[0]) / configs.bev_height
 
     ## step 2 : create a copy of the lidar pcl and transform all metrix x-coordinates into bev-image coordinates
+    pcl_copy = np.copy(lidar_pcl)
+    pcl_copy[:, 0] = np.int_(np.floor(pcl_copy[:, 0] / scale))
 
     # step 3 : perform the same operation as in step 2 for the y-coordinates but make sure that no negative bev-coordinates occur
+    pcl_copy[:, 1] = np.int_(np.floor((pcl_copy[:, 1] + configs.lim_y[1]) / scale))
 
     # step 4 : visualize point-cloud using the function show_pcl from a previous task
+    show_pcl(pcl_copy)
 
     #######
     ####### ID_S2_EX1 END #######
