@@ -217,9 +217,14 @@ def detect_objects(input_bev_maps, model, configs):
 
             outputs['hm_cen'] = torch.clamp(outputs['hm_cen'].sigmoid_(), min=1e-4, max=1 - 1e-4)
             outputs['cen_offset'] = torch.clamp(outputs['cen_offset'].sigmoid_(), min=1e-4, max=1 - 1e-4)
-            detections = decode(outputs['hm_cen'], outputs['cen_offset'], outputs['direction'], outputs['z_coor'], outputs['dim'], K=configs.K)
-            detections = detections.cpu().numpy().astype(np.float32)
-            detections = post_processing(detections, configs)
+            output_post = decode(outputs['hm_cen'], outputs['cen_offset'], outputs['direction'], outputs['z_coor'], outputs['dim'], K=configs.K)
+            output_post = output_post.cpu().numpy().astype(np.float32)
+            output_post = post_processing(output_post, configs)
+            detections = []
+            for detection in output_post:
+                for obj in detection[1]:
+                    _, x, y, z, h, w, l, yaw = obj
+                    detections.append([1, x, y, z, h, w, l, -yaw])
 
             #######
             ####### ID_S3_EX1-5 END #######
@@ -233,15 +238,27 @@ def detect_objects(input_bev_maps, model, configs):
     objects = []
 
     ## step 1 : check whether there are any detections
+    if len(detections) > 0:
 
         ## step 2 : loop over all detections
+        for detection in detections:
 
             ## step 3 : perform the conversion using the limits for x, y and z set in the configs structure
+            x_scale = configs.lim_x[1] - configs.lim_x[0]
+            y_scale = configs.lim_y[1] - configs.lim_y[0]
+            y_offset = 0 + configs.lim_y[0]
+
+            klass, bev_y, bev_x, z, h, bev_w, bev_l, yaw = detection
+            x = (bev_x / configs.bev_height) * (x_scale)
+            y = (bev_y / configs.bev_width) * y_scale + y_offset
+            w = (bev_w / configs.bev_width) * y_scale
+            l = (bev_l / configs.bev_height) * x_scale
 
             ## step 4 : append the current object to the 'objects' array
+            objects.append([klass, x, y, z, h, w, l, yaw])
 
     #######
-    ####### ID_S3_EX2 START #######
+    ####### ID_S3_EX2 END #######
 
     return objects
 
