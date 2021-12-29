@@ -13,7 +13,20 @@ While the tracking was reasonably good, we can improve on this by including meas
 
 ### Step 2: Track Management
 
+In the second step of the project, we implemented track management.
+For each track, we initialized and updated a score and state.
+When then kept track of those values over time to decide if and when to delete the track.
+As can be seen below, the mean RMSE is high, but still below the expected 0.8 threshold for this step.
+
+![Step 2 RMSE](./img/step-2-rmse.png)
+
 ### Step 3: Data Association
+
+In the third step of the project, we implemented data association.
+For each track and measurement, we associated them by calculating their Mahalanobis distance and associating the nearest measures to their track.
+As can be seen in the RMSE plot, we track 3 objects in the scene with a relatively low error.
+
+![Step 3 RMSE](./img/step-3-rmse.png)
 
 ### Step 4: Sensor Fusion
 
