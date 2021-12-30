@@ -22,6 +22,7 @@ from matplotlib.transforms import Affine2D
 import matplotlib.ticker as ticker
 import os
 import cv2
+import skvideo.io
 
 # add project directory to python path to enable relative imports
 import os
@@ -231,17 +232,13 @@ def plot_rmse(manager, all_labels, configs_det):
         
 def make_movie(path):
     # read track plots
-    images = [img for img in sorted(os.listdir(path)) if img.endswith(".png")]
-    frame = cv2.imread(os.path.join(path, images[0]))
-    height, width, layers = frame.shape
-
-    # save with 10fps to result dir
-    video = cv2.VideoWriter(os.path.join(path, 'my_tracking_results.avi'), 0, 10, (width,height))
+    images = [img for img in sorted(os.listdir(path)) if img.endswith(".png")][1:]
+    writer = skvideo.io.FFmpegWriter(os.path.join(path, 'my_tracking_results.mp4'))
 
     for image in images:
         fname = os.path.join(path, image)
-        video.write(cv2.imread(fname))
+        writer.writeFrame(cv2.imread(fname))
         os.remove(fname) # clean up
 
     cv2.destroyAllWindows()
-    video.release()
+    writer.close()

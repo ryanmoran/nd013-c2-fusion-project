@@ -12,14 +12,15 @@ ENV LANG C.UTF-8
 
 RUN apt-get -qqy update \
   && DEBIAN_FRONTEND=noninteractive apt-get -qqy --no-install-recommends install \
-    software-properties-common \
-    libgtk-3-dev \
-    libglvnd0 \
-    libgl1 \
-    libglx0 \
+    ffmpeg \
     libegl1 \
-    libxext6 \
+    libgl1 \
+    libglvnd0 \
+    libglx0 \
+    libgtk-3-dev \
     libx11-6 \
+    libxext6 \
+    software-properties-common \
   && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get -qqy update && \

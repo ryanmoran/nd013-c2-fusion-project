@@ -30,6 +30,16 @@ As can be seen in the RMSE plot, we track 3 objects in the scene with a relative
 
 ### Step 4: Sensor Fusion
 
+In the last step of the project, we included measurements from the camera sensor in our fusion.
+To do this, we identified if the sensor measurement was within the field-of-view for the sensor.
+We then also calculated the non-linear measurement expectation value.
+Finally, we initialized the camera measurement objects using the provided parameters.
+
+We can see from our results that the tracking is quite good and that we've removed most instances of clutter.
+
+![Step 4 RMSE](./img/step-4-rmse.png)
+
+![Step 4 Results](./img/step-4-results.gif)
 
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)?
 

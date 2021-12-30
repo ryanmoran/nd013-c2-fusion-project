@@ -6,6 +6,7 @@ open3d
 opencv-python
 pillow
 protobuf
+scikit-video
 shapely
 torch
 tqdm
