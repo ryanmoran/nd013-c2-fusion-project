@@ -43,6 +43,18 @@ We can see from our results that the tracking is quite good and that we've remov
 
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)?
 
+There are clearly benefits to using a fusion approach over relying purely on lidar.
+In theory, using redundant sensors can help to overcome the shortcomings of any one sensor type.
+We see this in practice by looking at the results we can acheive with a fusion system.
+As can be seen from the videos below, we see fewer ghost tracks and more stable tracking of real targets.
+
+#### Lidar-only
+
+![Step 3 Results](./img/step-3-results.gif)
+
+#### Camera-Lidar Fusion
+
+![Step 4 Results](./img/step-4-results.gif)
 
 ### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
 
