@@ -41,22 +41,22 @@ We can see from our results that the tracking is quite good and that we've remov
 
 ![Step 4 Results](./img/step-4-results.gif)
 
-### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)?
+## 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)?
 
 There are clearly benefits to using a fusion approach over relying purely on lidar.
 In theory, using redundant sensors can help to overcome the shortcomings of any one sensor type.
 We see this in practice by looking at the results we can acheive with a fusion system.
 As can be seen from the videos below, we see fewer ghost tracks and more stable tracking of real targets.
 
-#### Lidar-only
+### Lidar-only
 
 ![Step 3 Results](./img/step-3-results.gif)
 
-#### Camera-Lidar Fusion
+### Camera-Lidar Fusion
 
 ![Step 4 Results](./img/step-4-results.gif)
 
-### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
+## 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
 
 Associating measurements with tracks can be difficult.
 In a situation with many vehicles or other objects to track, the heuristics we use to assign measurements to tracks may break down.
@@ -65,9 +65,21 @@ There are also situations where one or the other sensor might perform more or le
 For example, cameras may perform poorly at night while lidar might perform poorly in inclement weather.
 We didn't see any of these particular situations in our project, but its not hard to imagine these types of situations arising in real-world conditions.
 
-### 4. Can you think of ways to improve your tracking results in the future?
+## 4. Can you think of ways to improve your tracking results in the future?
 
 To improve tracking, you could introduce more sensors, like newer types of lidar or forward-facing radar that can infer velocity from the Doppler effect perceived in the returned signal.
 Also, any improvements in the accuracy of your sensor perception systems should result in more accurate tracking.
 From the perception system, you could also use confidence weights to improve the scoring of tracks.
 Improvements to the components of the tracking system, like improving the gating decision or the models used to describe motion would also improve the overall tracking system.
+
+## Combining Mid-Term and Final Projects
+
+In order to see how our complete project works, we've pulled in the lidar object detection system we created in the mid-term.
+This system performs worse than the recorded results. It appears that the model we have trained is less adept at identifying the objects in the scene than the recorded results.
+
+![Mid-Term RMSE](./img/mid-term-rmse.png)
+
+We've also updated the lidar measurement noise to match the standard deviation values we found in the mid-term.
+This system also doesn't perform as well as the recorded results, but improves upon the RMSE values found after just combining the mid-term with the final project.
+
+![Std-Dev RMSE](./img/std-dev-rmse.png)
