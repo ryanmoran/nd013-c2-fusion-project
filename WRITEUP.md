@@ -58,5 +58,16 @@ As can be seen from the videos below, we see fewer ghost tracks and more stable 
 
 ### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
 
+Associating measurements with tracks can be difficult.
+In a situation with many vehicles or other objects to track, the heuristics we use to assign measurements to tracks may break down.
+Additionally, in situations where one or the other sensor is failing to detect an object in the scene, that object's tracking may never become confirmed.
+There are also situations where one or the other sensor might perform more or less poorly.
+For example, cameras may perform poorly at night while lidar might perform poorly in inclement weather.
+We didn't see any of these particular situations in our project, but its not hard to imagine these types of situations arising in real-world conditions.
 
 ### 4. Can you think of ways to improve your tracking results in the future?
+
+To improve tracking, you could introduce more sensors, like newer types of lidar or forward-facing radar that can infer velocity from the Doppler effect perceived in the returned signal.
+Also, any improvements in the accuracy of your sensor perception systems should result in more accurate tracking.
+From the perception system, you could also use confidence weights to improve the scoring of tracks.
+Improvements to the components of the tracking system, like improving the gating decision or the models used to describe motion would also improve the overall tracking system.
